@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Word Search | Axborot texnologiyalari</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+</head>
+
+<body>
+    <div class="bg-grid"></div>
+    <div class="app">
+        <header class="header">
+            <div class="brand">
+                <div class="brand-dot"></div>
+                <div>
+                    <h1>IT WORD SEARCH</h1>
+                    <p>Axborot texnologiyalari mavzusida so‘z topish o‘yini</p>
+                </div>
+            </div>
+            <div class="header-controls">
+                <div class="lang-switch">
+                    <button class="lang-btn active" data-lang="uz">O'Z</button>
+                    <button class="lang-btn" data-lang="ru">RU</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <button class="ghost-btn" id="howToBtn">
+                    <span>Qo'llanma</span>
+                </button>
+            </div>
+        </header>
+
+        <section class="panel" id="startScreen">
+            <div class="panel-content center">
+                <div class="hero-badge">Mavzu: Axborot texnologiyalari</div>
+                <h2>So‘zlarni katakchalardan toping</h2>
+                <p>Har bir raundda <strong>10 ta</strong> IT so‘zi beriladi. <strong>3 daqiqa</strong> ichida imkon qadar ko‘proqini topishga harakat qiling.</p>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-label">So‘zlar bazasi</span>
+                        <span class="stat-value">100+</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Raund vazifasi</span>
+                        <span class="stat-value">10 ta so‘z</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Vaqt</span>
+                        <span class="stat-value">03:00</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Tillar</span>
+                        <span class="stat-value">UZ / RU / EN</span>
+                    </div>
+                </div>
+                <button class="primary-btn" id="startBtn">O‘yinni boshlash</button>
+            </div>
+        </section>
+
+        <section class="panel hidden" id="gameScreen">
+            <div class="game-layout">
+                <aside class="sidebar">
+                    <div class="sidebar-card">
+                        <div class="sidebar-header">
+                            <span>Vaqt</span>
+                            <span class="timer" id="timer">03:00</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="timeProgress"></div>
+                        </div>
+                    </div>
+                    <div class="sidebar-card">
+                        <div class="sidebar-header">
+                            <span>Topshiriq</span>
+                            <span>10 ta so‘z</span>
+                        </div>
+                        <ul class="word-list" id="wordList"></ul>
+                        <div class="word-counter">
+                            <span>Topildi</span>
+                            <span><span id="foundCount">0</span> / 10</span>
+                        </div>
+                    </div>
+                    <div class="sidebar-card hint-card">
+                        <p>Katakchalarni sichqoncha yoki barmog'ingiz bilan tortib, so‘zlarni belgilash orqali toping.</p>
+                    </div>
+                    <button class="ghost-btn full" id="restartBtn">Qaytadan boshlash</button>
+                </aside>
+                <main class="grid-wrapper">
+                    <div class="grid-header">
+                        <div>
+                            <h3>So‘z qidiruv maydoni</h3>
+                            <p>Gorizontal, vertikal va diagonal yo‘nalishlarda qidirishingiz mumkin</p>
+                        </div>
+                        <div class="selection-hint" id="selectionHint">Tanlash rejimi faol</div>
+                    </div>
+                    <div class="grid-container">
+                        <div class="grid" id="wordGrid"></div>
+                    </div>
+                </main>
+            </div>
+        </section>
+
+        <section class="panel hidden" id="resultScreen">
+            <div class="panel-content center result-content">
+                <div class="result-badge" id="resultBadge">NATIJA</div>
+                <h2 id="resultTitle">Ajoyib!</h2>
+                <p id="resultSubtitle">Siz berilgan vaqt ichida topshiriqni muvaffaqiyatli bajardingiz.</p>
+                <div class="result-metrics">
+                    <div class="metric-card">
+                        <span class="metric-label">Topilgan so‘zlar</span>
+                        <span class="metric-value" id="resultFound">0 / 10</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">To‘g‘rilik foizi</span>
+                        <span class="metric-value" id="resultPercent">0%</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-label">Reyting</span>
+                        <span class="metric-value metric-rating" id="resultRating">D</span>
+                    </div>
+                </div>
+                <div class="result-actions">
+                    <button class="primary-btn" id="playAgainBtn">Yana o‘ynash</button>
+                    <button class="ghost-btn" id="backToMenuBtn">Bosh menyuga qaytish</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal hidden" id="howToModal">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Qanday o‘ynash kerak?</h3>
+                <button class="icon-btn" id="closeModalBtn">✕</button>
+            </div>
+            <div class="modal-body">
+                <ol class="howto-list">
+                    <li>Tilni tanlang (O'zbek / Rus / Ingliz)</li>
+                    <li>"O‘yinni boshlash" tugmasini bosing</li>
+                    <li>Chap tomondagi ro'yxatdan qidiriladigan 10 ta IT so‘zni ko‘ring</li>
+                    <li>Kartadagi harflarni sichqoncha (yoki sensorli) bilan tortib tanlang</li>
+                    <li>To‘g‘ri tanlangan so‘z ro‘yxatda chiziladi va hisoblagich ortadi</li>
+                    <li>Vaqt tugashidan oldin imkon qadar ko‘proq so‘zni toping</li>
+                </ol>
+                <div class="modal-note">
+                    <strong>Eslatma:</strong> So‘zlar gorizontal, vertikal va diagonal yo‘nalishlarda joylashtirilgan bo‘lishi mumkin.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js" type="module"></script>
+    <script src="js/grid.js" type="module"></script>
+    <script src="js/app.js" type="module"></script>
+</body>
+
+</html>
